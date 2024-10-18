@@ -1,46 +1,9 @@
-//16-oct-24
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:table_calendar/table_calendar.dart';
 
 void main() {
   runApp(const MedicalApp());
 }
-
-class AllAppointmentsScreen extends StatelessWidget {
-  final List<Appointment> appointments;
-
-  const AllAppointmentsScreen({super.key, required this.appointments});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('All Appointments'),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: appointments.isEmpty
-          ? const Center(child: Text('No Appointments Found'))
-          : ListView.builder(
-        itemCount: appointments.length,
-        itemBuilder: (context, index) {
-          return _buildAppointmentCard(appointments[index]);
-        },
-      ),
-    );
-  }
-
-  Widget _buildAppointmentCard(Appointment appointment) {
-    return Card(
-      child: ListTile(
-        title: Text(appointment.doctorName),
-        subtitle: Text(DateFormat('yyyy-MM-dd HH:mm').format(appointment.dateTime)),
-      ),
-    );
-  }
-}
-
 
 class MedicalApp extends StatelessWidget {
   const MedicalApp({super.key});
@@ -81,34 +44,20 @@ class Doctor {
   });
 }
 
-class Appointment {
-  final String doctorName;
-  final DateTime dateTime;
-
-  Appointment({required this.doctorName, required this.dateTime});
-}
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   List<Appointment> appointments = [];
 
 
   final List<Doctor> doctors = [
     Doctor(
-      name: 'Dr. Aftab Kamrul Shaikh',
-      specialty: 'General Physician',
-      imageUrl: 'https://via.placeholder.com/150',
-      experience: 7,
-      consultationFee: 199,
-      license: '66841',
-      summary: 'Experienced general physician specializing in primary care and preventive medicine.'
+        name: 'Dr. Aftab Kamrul Shaikh',
+        specialty: 'General Physician',
+        imageUrl: 'https://via.placeholder.com/150',
+        experience: 7,
+        consultationFee: 199,
+        license: '66841',
+        summary: 'Experienced general physician specializing in primary care and preventive medicine.'
     ),
     Doctor(
       name: 'Dr. Parvinsultan Sutar',
@@ -136,10 +85,9 @@ class _MainScreenState extends State<MainScreen> {
             doctors: doctors,
           ),
           DoctorScreen(doctors: doctors, onBookAppointment: _bookAppointment),
-          TreatmentsScreen(),
+           const Profile(),
           AppointmentsScreen(appointments: appointments),
-          TreatmentsScreen(),
-
+          const TreatmentScreen(),
         ],
       ),
       bottomNavigationBar: _buildBottomNavBar(),
@@ -197,258 +145,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class DashboardScreen extends StatelessWidget {
-  final List<Appointment> appointments;
-  final Function(Appointment) onCancelAppointment;
-  final Function(Doctor, DateTime) onBookAppointment;
-  final List<Doctor> doctors;
-
-  const DashboardScreen({
-    super.key,
-    required this.appointments,
-    required this.onCancelAppointment,
-    required this.onBookAppointment,
-    required this.doctors,
-  });
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
-
-
-
-      ),
-
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildProfileCard(),
-              const SizedBox(height: 30),
-              _buildActionButtons(),
-              const SizedBox(height: 30),
-              _buildUpcomingAppointments(),
-              const SizedBox(height: 30),
-              _buildBookAppointmentButton(context),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileCard() {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 35,
-                  backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3135/3135715.png'),
-                ),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'patient name',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Clinic's Patient ID: -",
-                      style: TextStyle(fontSize: 10, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-
-
-            const SizedBox(height: 25),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildInfoItem('Blood Group', '-'),
-                _buildInfoItem('Weight', '-'),
-                _buildInfoItem('Age', '23 Yrs'),
-              ],
-            ),
-
-
-          ],
-
-        ),
-
-
-      ),
-
-
-
-    );
-  }
-
-  Widget _buildInfoItem(String title, String value) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: const TextStyle(color: Colors.grey),
-        ),
-        Text(
-          value,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-
-
-  }
-
-  Widget _buildActionButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        _buildActionButton(Icons.medical_information_rounded, 'Medical Record'),
-        _buildActionButton(Icons.history_outlined, 'Medical History'),
-        _buildActionButton(Icons.medication, 'Drugs/Tests'),
-      ],
-    );
-  }
-
-  Widget _buildActionButton(IconData icon, String label) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.orange,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Icon(icon, color: Colors.white),
-        ),
-        const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
-    );
-  }
-
-
-
-  Widget _buildUpcomingAppointments() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Upcoming Appointments',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'View all',
-              style: TextStyle(color: Colors.orange[700], fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        appointments.isEmpty
-            ? const Card(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Center(
-              child: Text(
-                'No Appointments Found',
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-          ),
-        )
-            : Column(
-          children: appointments
-              .map((appointment) => _buildAppointmentCard(appointment))
-              .toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAppointmentCard(Appointment appointment) {
-    return Card(
-      child: ListTile(
-        title: Text(appointment.doctorName),
-        subtitle: Text(DateFormat('yyyy-MM-dd HH:mm').format(appointment.dateTime)),
-        trailing: ElevatedButton(
-          onPressed: () => onCancelAppointment(appointment),
-          child: const Text('Cancel'),
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBookAppointmentButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: () => _showBookAppointmentDialog(context),
-        icon: const Icon(Icons.calendar_today,color: Colors.white,),
-        label: const Text('Book an Appointment',style: TextStyle(color: Colors.white)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showBookAppointmentDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: BookAppointmentDialog(
-            doctors: doctors,
-            onBookAppointment: onBookAppointment,
-          ),
-        );
-      },
-    );
-  }
-
-
-
+  MainScreenState createState() => MainScreenState();
 }
 
-class BookAppointmentDialog extends StatefulWidget {
-  final List<Doctor> doctors;
-  final Function(Doctor, DateTime) onBookAppointment;
+class Appointment {
+  final String doctorName;
+  final DateTime dateTime;
 
-  const BookAppointmentDialog({
-    super.key,
-    required this.doctors,
-    required this.onBookAppointment,
-  });
-
-  @override
-  _BookAppointmentDialogState createState() => _BookAppointmentDialogState();
+  Appointment({required this.doctorName, required this.dateTime});
 }
 
 class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
@@ -549,13 +257,234 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
       });
     }
   }
+}
+
+class DashboardScreen extends StatelessWidget {
+  final List<Appointment> appointments;
+  final Function(Appointment) onCancelAppointment;
+  final Function(Doctor, DateTime) onBookAppointment;
+  final List<Doctor> doctors;
+
+  const DashboardScreen({
+    super.key,
+    required this.appointments,
+    required this.onCancelAppointment,
+    required this.onBookAppointment,
+    required this.doctors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+      ),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildProfileCard(),
+              const SizedBox(height: 30),
+              _buildActionButtons(),
+              const SizedBox(height: 30),
+              _buildUpcomingAppointments(),
+              const SizedBox(height: 30),
+              _buildBookAppointmentButton(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileCard() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            const Row(
+              children: [
+                CircleAvatar(
+                  radius: 35,
+                  backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/3135/3135715.png'),
+                ),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'patient name',
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Clinic's Patient ID: -",
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+
+            const SizedBox(height: 25),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildInfoItem('Blood Group', '-'),
+                _buildInfoItem('Weight', '-'),
+                _buildInfoItem('Age', '23 Yrs'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem(String title, String value) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(color: Colors.grey),
+        ),
+        Text(
+          value,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildActionButton(Icons.medical_information_rounded, 'Medical Record'),
+        _buildActionButton(Icons.history_outlined, 'Medical History'),
+        _buildActionButton(Icons.medication, 'Drugs/Tests'),
+      ],
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.orange,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Icon(icon, color: Colors.white),
+        ),
+        const SizedBox(height: 8),
+        Text(label, style: const TextStyle(fontSize: 12)),
+      ],
+    );
+  }
+
+
+
+  Widget _buildUpcomingAppointments() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Upcoming Appointments',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'View all',
+              style: TextStyle(color: Colors.orange[700], fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        appointments.isEmpty
+            ? const Card(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Center(
+              child: Text(
+                'No Appointments Found',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+        )
+            : Column(
+          children: appointments
+              .map((appointment) => _buildAppointmentCard(appointment))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAppointmentCard(Appointment appointment) {
+    return Card(
+      child: ListTile(
+        title: Text(appointment.doctorName),
+        subtitle: Text(DateFormat('yyyy-MM-dd HH:mm').format(appointment.dateTime)),
+        trailing: ElevatedButton(
+          onPressed: () => onCancelAppointment(appointment),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          child: const Text('Cancel'),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBookAppointmentButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: () => _showBookAppointmentDialog(context),
+        icon: const Icon(Icons.calendar_today,color: Colors.white,),
+        label: const Text('Book an Appointment',style: TextStyle(color: Colors.white)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.orange,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showBookAppointmentDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: BookAppointmentDialog(
+            doctors: doctors,
+            onBookAppointment: onBookAppointment,
+          ),
+        );
+      },
+    );
+  }
+
 
 
 }
-
-
-
-
 class DoctorScreen extends StatelessWidget {
   final List<Doctor> doctors;
   final Function(Doctor, DateTime) onBookAppointment;
@@ -568,21 +497,28 @@ class DoctorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: doctors.length,
-      itemBuilder: (context, index) {
-        final doctor = doctors[index];
-        return ListTile(
-          title: Text(doctor.name),
-          subtitle: Text(doctor.specialty),
-          trailing: ElevatedButton(
-            onPressed: () {
-              _bookAppointmentDialog(context, doctor); // Method is now referenced here
-            },
-            child: const Text('Book Appointment'),
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(title: const Text("Doctor profile"),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+
+      ),
+      body: ListView.builder(
+        itemCount: doctors.length,
+        itemBuilder: (context, index) {
+          final doctor = doctors[index];
+          return ListTile(
+            title: Text(doctor.name),
+            subtitle: Text(doctor.specialty),
+            trailing: ElevatedButton(
+              onPressed: () {
+                _bookAppointmentDialog(context, doctor); // Method is now referenced here
+              },
+              child: const Text('Book Appointment'),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -603,18 +539,25 @@ class DoctorScreen extends StatelessWidget {
     );
   }
 }
+class Profile extends StatelessWidget {
 
+  const Profile({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
 
-
-
-
-
-
-
-
-
-
+      ),
+      body: const Center(
+        child: Text('profile screen'),
+      ),
+    );
+  }
+}
 class AppointmentsScreen extends StatelessWidget {
   final List<Appointment> appointments;
 
@@ -647,23 +590,37 @@ class AppointmentsScreen extends StatelessWidget {
     );
   }
 }
+class BookAppointmentDialog extends StatefulWidget {
+  final List<Doctor> doctors;
+  final Function(Doctor, DateTime) onBookAppointment;
 
-class TreatmentsScreen extends StatelessWidget {
-
-  const TreatmentsScreen({super.key});
+  const BookAppointmentDialog({
+    super.key,
+    required this.doctors,
+    required this.onBookAppointment,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  _BookAppointmentDialogState createState() => _BookAppointmentDialogState();
+}
+class TreatmentScreen extends StatelessWidget{
+  const TreatmentScreen({super.key});
+  @override
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Treatments'),
+        title: const Text('Treatment'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
-
       ),
       body: const Center(
-        child: Text('Treatments Information'),
+        child: Text('Treatment'),
       ),
     );
   }
+
 }
+
+
+
+
