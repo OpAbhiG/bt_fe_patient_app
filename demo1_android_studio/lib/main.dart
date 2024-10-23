@@ -404,7 +404,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             const Text(
               'Upcoming Appointments',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             Text(
               'View all',
@@ -420,7 +420,8 @@ class DashboardScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'No Appointments Found',
-                style: TextStyle(color: Colors.grey),
+
+                style: TextStyle(color: Colors.grey,fontSize: 15),
               ),
             ),
           ),
