@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'MainScreen.dart';
+
 void main() {
   runApp(const BharatTeleClinicApp());
 }
@@ -51,31 +51,28 @@ class _LanguageClinicSelectionScreenState extends State<LanguageClinicSelectionS
 
         children: [
           Container(
+
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bluebg1.jpeg'), // Path to your background image 1st page
-                fit: BoxFit.cover, // Cover the entire screen
+                image: AssetImage('assets/bkimg.jpg'), // Path to your background image 1st page
+                fit: BoxFit.cover,
+                // Cover the entire screen
               ),
             ),
           ),
           SafeArea(
-
-
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(20),
               child: Column(
-
-
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
 
-
-
-                    padding: const EdgeInsets.only(top: 150), // Adjust the top padding as needed
+                    padding: const EdgeInsets.only(top: 160), // Adjust the top padding as needed
                     child: SizedBox(
                       height: 60, // Adjust height as needed
-                      width: 60, // Adjust width as needed
+                      // width: 60, // Adjust width as needed
+
                       child: Image.asset(
                         'assets/btclogo.png',// logo 1st
                         fit: BoxFit.contain,
@@ -87,10 +84,10 @@ class _LanguageClinicSelectionScreenState extends State<LanguageClinicSelectionS
 
 
 
-                  const SizedBox(height: 35),//Container adjusting point
+                  const SizedBox(height: 40),//Container adjusting point
                   // Blue container around the dropdowns and button
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(30),
                     decoration: BoxDecoration(
                       color: Colors.indigo,
                       borderRadius: BorderRadius.circular(15), // Rounded corners
@@ -99,8 +96,10 @@ class _LanguageClinicSelectionScreenState extends State<LanguageClinicSelectionS
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         _buildDropdownWithIcon(
+
                           'Language',
                           Icons.language,
+
                           ['English', 'Hindi (हिन्दी)', 'Bengali (বাংলা)', 'Marathi (मराठी)', 'Telugu (తెలుగు)', 'Tamil (தமிழ்)'],
                           selectedLanguage,
                               (String? newValue) {
@@ -110,11 +109,9 @@ class _LanguageClinicSelectionScreenState extends State<LanguageClinicSelectionS
                           },
                         ),
                         const SizedBox(height: 30),
-
                         _buildDropdownWithIcon(
 
-                          'Clinic',
-                          Icons.home, // Icon for clinic
+                          'Clinic',Icons.home,// Icon for clinic
                           ['GTM4Health', 'Prakash Clinic', 'Sehat +', 'Mister Hair Clinic', 'Bharat TeleClinic', 'Krishnabhi Health Point'],
                           selectedClinic,
                               (String? newValue) {
@@ -174,10 +171,10 @@ class _LanguageClinicSelectionScreenState extends State<LanguageClinicSelectionS
   // _buildDropdownWithIcon method where icon will stay visible
   Widget _buildDropdownWithIcon(String label, IconData icon, List<String> items, String? selectedValue, ValueChanged<String?> onChanged) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(30),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -243,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final email = _emailController.text.trim();
       final password = _passwordController.text;
 
-      if ((email == '7720024939' || email == 'gholapabhishek9@gmail.com') && password == '1234') {
+      if ((email == '1234' || email == 'gholapabhishek9@gmail.com') && password == '1234') {
         // Successful login
         Navigator.pushReplacement(
           context,
@@ -266,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Background Image
           SizedBox.expand(
             child: Image.asset(
-              'assets/bgimg0.jpeg', // background img login 2nd screen
+              'assets/bkimg.jpg', // background img login 2nd screen
               fit: BoxFit.cover,
             ),
           ),
@@ -280,15 +277,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Back arrow aligned to the left
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () => Navigator.pop(context),
-                        padding: EdgeInsets.zero,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: IconButton(
+                    //     icon: const Icon(Icons.arrow_back, color: Colors.black),///
+                    //     onPressed: () => Navigator.pop(context),
+                    //     padding: EdgeInsets.zero,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 90),
 
                     // Logo centered
                     Center(
@@ -473,7 +470,7 @@ class RegistrationScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/bgimg0.jpeg'), // Path to your background image
+                image: AssetImage('assets/bkimg.jpg'), // Path to your background image
                 fit: BoxFit.cover, // Cover the entire screen
               ),
             ),
@@ -544,7 +541,8 @@ class RegistrationScreen extends StatelessWidget {
                                 onChanged: (_) {},
                               ),
                             ),
-                            SizedBox(width: screenWidth * 0.04),                            Expanded(
+                            SizedBox(width: screenWidth * 0.04),
+                            Expanded(
                               child: TextFormField(
                                 decoration: const InputDecoration(
                                   labelText: 'Age',
@@ -729,9 +727,13 @@ class MainScreenState extends State<MainScreen> {
             doctors: doctors,
           ),
           DoctorScreen(doctors: doctors, onBookAppointment: _bookAppointment),
-          const Profile(),
+          Profile(onLogout: () {  },),
+
+
+
+
           AppointmentsScreen(appointments: appointments),
-          const TreatmentScreen(),
+          TreatmentScreen(),
         ],
       ),
       bottomNavigationBar: _buildBottomNavBar(),
@@ -767,7 +769,7 @@ class MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.monitor_heart), label: 'Doctors'),
 
-          BottomNavigationBarItem(icon: Icon(Icons.manage_accounts), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.manage_accounts), label: 'Profile'),
 
           BottomNavigationBarItem(icon: Icon(Icons.date_range), label: 'Appointments'),
           BottomNavigationBarItem(icon: Icon(Icons.medical_services), label: 'Treatments'),
@@ -795,6 +797,186 @@ class MainScreen extends StatefulWidget {
   @override
   MainScreenState createState() => MainScreenState();
 }
+
+
+class DoctorProfileScreen extends StatefulWidget {
+  final Doctor doctor;
+
+  const DoctorProfileScreen({super.key, required this.doctor});
+
+  @override
+  _DoctorProfileScreenState createState() => _DoctorProfileScreenState();
+}
+
+class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
+  bool _showAllDetails = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+
+        title: const Text('Doctor Profile'),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.doctor.imageUrl),
+                    radius: 50,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    widget.doctor.name,
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  Text(
+                    widget.doctor.specialty,
+                    style: const TextStyle(fontSize: 18, color: Colors.white70),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      '${widget.doctor.experience} Y. Exp',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildInfoSection('License Number', widget.doctor.license),
+                  const SizedBox(height: 16),
+                  _buildInfoSection('About', widget.doctor.summary),
+                  const SizedBox(height: 16),
+                  _buildInfoSection('Consultation Fee', 'Rs ${widget.doctor.consultationFee}'),
+                  const SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Implement booking logic
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: const Text('Book Appointment', style: TextStyle(fontSize: 16)),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _showAllDetails = !_showAllDetails;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          child: Text(
+                            _showAllDetails ? 'Hide Details' : 'View Details',
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_showAllDetails) ...[
+                    const SizedBox(height: 24),
+                    _buildAllDetails(),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoSection(String title, String content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          content,
+          style: const TextStyle(fontSize: 16),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAllDetails() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'All Doctor Details',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 16),
+        _buildDetailItem('Name', widget.doctor.name),
+        _buildDetailItem('Specialty', widget.doctor.specialty),
+        _buildDetailItem('Experience', '${widget.doctor.experience} years'),
+        _buildDetailItem('License Number', widget.doctor.license),
+        _buildDetailItem('Consultation Fee', 'Rs ${widget.doctor.consultationFee}'),
+        _buildDetailItem('About', widget.doctor.summary),
+        // Add more details as needed
+      ],
+    );
+  }
+
+  Widget _buildDetailItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            child: Text(
+              '$label:',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: Text(value),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
 
 
 class Appointment {
@@ -846,7 +1028,7 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
           selectedDoctor = newValue;
         });
       },
-      hint: const Text('Select Doctor'),
+      hint: const Text('Select Doctor',style: TextStyle(fontSize: 15.0)),
       isExpanded: true,
       items: widget.doctors.map((Doctor doctor) {
         return DropdownMenuItem<Doctor>(
@@ -921,11 +1103,11 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove back arrow
         title: const Text('Dashboard'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
       ),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -945,7 +1127,6 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildProfileCard() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -1143,7 +1324,11 @@ class DoctorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Doctor profile"),
+
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove back arrow
+
+        title: const Text("Doctor profile"),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
 
@@ -1153,7 +1338,13 @@ class DoctorScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final doctor = doctors[index];
           return ListTile(
-            title: Text(doctor.name),
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(doctor.imageUrl), // URL of the profile image
+              // You can also use AssetImage if you're using local images
+              radius: 20, // Adjust the size of the avatar
+            ),
+
+            title: Text(doctor.name,style: TextStyle(fontSize: 10),),
             subtitle: Text(doctor.specialty),
             trailing: ElevatedButton(
               onPressed: () {
@@ -1185,21 +1376,151 @@ class DoctorScreen extends StatelessWidget {
   }
 }
 
-class Profile extends StatelessWidget {
 
-  const Profile({super.key});
+// class Profile extends StatelessWidget {
+//
+//   const Profile({super.key, required Null Function() onLogout});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Profile'),
+//         backgroundColor: Theme.of(context).primaryColor,
+//         foregroundColor: Colors.white,
+//
+//       ),
+//       body: const Center(
+//         child: Text('profile screen'),
+//       ),
+//     );
+//   }
+// }
+
+
+
+// class Profile extends StatelessWidget {
+//   final VoidCallback onLogout;
+//
+//   const Profile({super.key, required this.onLogout});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Profile'),
+//         backgroundColor: Theme.of(context).primaryColor,
+//         foregroundColor: Colors.white,
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//
+//
+//             const SizedBox(height: 550),
+//             // Add more profile information widgets here
+//             const SizedBox(height: 30),
+//             ElevatedButton(
+//               onPressed: () {
+//                 onLogout();
+//                 Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+//               },
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Colors.orange,
+//                 padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+//               ),
+//               child: const Text(
+//                 'Logout',
+//                 style: TextStyle(fontSize: 15,color: Colors.white),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class Profile extends StatelessWidget {
+  final VoidCallback onLogout;
+
+  const Profile({super.key, required this.onLogout});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove back arrow
+
         title: const Text('Profile'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
-
       ),
-      body: const Center(
-        child: Text('profile screen'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/limg.jpg'),
+            ),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   'John Doe',
+            //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // ),
+            // const SizedBox(height: 10),
+            // const Text(
+            //   'john.doe@example.com',
+            //   style: TextStyle(fontSize: 16, color: Colors.grey),
+            // ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                // Show a confirmation dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Logout'),
+                      content: const Text('Are you sure you want to logout?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Logout'),
+                          onPressed: () {
+                            // Call the onLogout callback
+                            onLogout();
+                            // Navigate to the login screen and remove all previous routes
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                  (route) => false,
+                            );
+
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              ),
+              child: const Text(
+                'Logout',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1214,6 +1535,8 @@ class AppointmentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove back arrow
+
         title: const Text('Appointments'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
