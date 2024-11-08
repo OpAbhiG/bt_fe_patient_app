@@ -14,3 +14,32 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+folder structure and file names
+
+
+lib/
+│
+├── main.dart
+├── app.dart
+│
+├── screens/
+│   ├── language_clinic_selection_screen.dart
+│   ├── login_screen.dart
+│   ├── registration_screen.dart
+│   ├── main_screen.dart
+│   ├── dashboard_screen.dart
+│   ├── doctor_screen.dart
+│   ├── profile_screen.dart
+│   ├── appointments_screen.dart
+│   └── treatment_screen.dart
+│
+├── widgets/
+│   ├── doctor_profile_screen.dart
+│   └── book_appointment_dialog.dart
+│
+└── models/
+├── doctor.dart
+└── appointment.dart
