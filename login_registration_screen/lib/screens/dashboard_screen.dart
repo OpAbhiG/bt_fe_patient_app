@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/appointment.dart';
@@ -297,7 +298,6 @@ class MedicalRecordScreen extends StatelessWidget {
     );
   }
 }
-
 class MedicalHistoryScreen extends StatelessWidget {
   const MedicalHistoryScreen({super.key});
 
@@ -315,7 +315,6 @@ class MedicalHistoryScreen extends StatelessWidget {
     );
   }
 }
-
 class DrugsTestsScreen extends StatelessWidget {
   const DrugsTestsScreen({super.key});
 

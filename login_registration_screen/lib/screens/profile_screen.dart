@@ -54,7 +54,7 @@ class Profile extends StatelessWidget {
                 // _buildProfileDetail(label: 'Date of Birth', value: 'DOB', isEditable: true, hasCalendarIcon: true),
                 // _buildProfileDetail(label: 'Gender', value: 'Male', isEditable: false, hasCalendarIcon: false),
                 // _buildProfileDetail(label: 'Age', value: '23 Yrs', isEditable: false, hasCalendarIcon: true),
-                _buildProfileDetail(label: 'Aadhaar Number', value: '627136103936', isEditable: false, hasCalendarIcon: true),
+                _buildProfileDetail(label: 'Aadhaar Number', value: '627136103936', isEditable: true, hasCalendarIcon: true),
                 // _buildProfileDetail(label: 'Email', value: 'gholapabhishek9@gmail.com', isEditable: false, hasCalendarIcon: true),
                 // _buildProfileDetail(label: 'Mobile Number', value: '9876543210', isEditable: true, hasCalendarIcon: true),
                 _buildProfileDetail(label: 'Aadhaar Number', value: '123456789123', isEditable: true, hasCalendarIcon: true),
@@ -115,9 +115,9 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileDetail({required String label, required String value, required bool isEditable, required bool hasCalendarIcon}) {
+  Widget _buildProfileDetail({required String label, required String value, bool isEditable=true, required bool hasCalendarIcon}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -125,7 +125,7 @@ class Profile extends StatelessWidget {
             label,
             style: const TextStyle(fontSize: 10, color: Colors.grey),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 3),
           Container(
             padding: const EdgeInsets.all(10),
             width: double.infinity,
