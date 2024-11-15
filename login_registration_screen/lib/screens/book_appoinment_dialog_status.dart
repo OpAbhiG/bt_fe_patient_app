@@ -1,10 +1,10 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../models/doctor.dart';
 
-class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
+class BookAppointmentDialogState extends State<BookAppointmentDialog> {
   Doctor? selectedDoctor;
   DateTime selectedDate = DateTime.now();
 
@@ -17,25 +17,21 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
         children: [
           const Text(
             'Book an Appointment',
-            style: TextStyle(fontSize: 13),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
           _buildDoctorDropdown(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
           _buildDateTimePicker(),
           const SizedBox(height: 16),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-              // padding: const EdgeInsets.symmetric(vertical: 10),
-            ),
-            onPressed: selectedDoctor  != null
+            onPressed: selectedDoctor != null
                 ? () {
               widget.onBookAppointment(selectedDoctor!, selectedDate);
               Navigator.of(context).pop();
             }
                 : null,
-            child: const Text('Book Appointment', style: TextStyle(color: Colors.white),),
+            child: const Text('Book Appointment'),
           ),
         ],
       ),
@@ -50,7 +46,7 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
           selectedDoctor = newValue;
         });
       },
-      hint: const Text('Select Doctor',style: TextStyle(fontSize: 13.0)),
+      hint: const Text('Select Doctor'),
       isExpanded: true,
       items: widget.doctors.map((Doctor doctor) {
         return DropdownMenuItem<Doctor>(
@@ -60,7 +56,6 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
       }).toList(),
     );
   }
-
   Widget _buildDateTimePicker() {
     return InkWell(
       onTap: () async {
@@ -87,8 +82,6 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
       ),
     );
   }
-
-
   Future<void> _selectTime(BuildContext context) async {
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
@@ -106,6 +99,7 @@ class _BookAppointmentDialogState extends State<BookAppointmentDialog> {
       });
     }
   }
+
 }
 class BookAppointmentDialog extends StatefulWidget {
   final List<Doctor> doctors;
@@ -119,5 +113,7 @@ class BookAppointmentDialog extends StatefulWidget {
   });
 
   @override
-  _BookAppointmentDialogState createState() => _BookAppointmentDialogState();
+  BookAppointmentDialogState createState() => BookAppointmentDialogState();
 }
+
+

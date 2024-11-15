@@ -7,7 +7,7 @@ class MedicalHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medical History'),
+        title: const Text('Medical History',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFF1A237E),
         foregroundColor: Colors.white,
       ),
@@ -70,7 +70,7 @@ class MedicalHistoryScreen extends StatelessWidget {
           child: Text(
             date,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1A237E),
             ),
@@ -139,8 +139,8 @@ class MedicalHistoryScreen extends StatelessWidget {
                           // Implement view details logic
                         },
                         child: const Text(
-                          'View Details',
-                          style: TextStyle(color: Colors.orange),
+                          'View Detail',
+                          style: TextStyle(color: Colors.orange,fontSize: 14),
                         ),
                       ),
                     ],

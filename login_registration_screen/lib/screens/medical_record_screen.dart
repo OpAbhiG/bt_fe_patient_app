@@ -163,7 +163,7 @@ class MedicalRecordScreen extends StatelessWidget {
                 },
                 child: const Text(
                   'View Details',
-                  style: TextStyle(color: Colors.orange),
+                  style: TextStyle(color: Colors.orange,fontSize: 14),
                 ),
               ),
             ],
@@ -172,4 +172,7 @@ class MedicalRecordScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

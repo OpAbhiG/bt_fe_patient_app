@@ -9,17 +9,20 @@ class DrugsTestsScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Drugs & Tests'),
+          title: const Text('Drugs & Tests', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+
+          ),
           backgroundColor: const Color(0xFF1A237E),
           foregroundColor: Colors.white,
           bottom: const TabBar(
             tabs: [
-              Tab(text: 'Prescribed Drugs'),
-              Tab(text: 'Lab Tests'),
+              Tab(icon: Icon(Icons.receipt_long), text: 'My ePrescription'),
+              Tab(icon: Icon(Icons.science), text: 'Lab Test'),
             ],
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white70,
             indicatorColor: Colors.orange,
+
           ),
         ),
         body: TabBarView(
@@ -131,7 +134,7 @@ class DrugsTestsScreen extends StatelessWidget {
             _buildDrugInfo('Dosage', dosage),
             _buildDrugInfo('Frequency', frequency),
             _buildDrugInfo('Duration', duration),
-            const SizedBox(height: 8),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -148,7 +151,8 @@ class DrugsTestsScreen extends StatelessWidget {
                   },
                   child: const Text(
                     'View Details',
-                    style: TextStyle(color: Colors.orange),
+
+                    style: TextStyle(color: Colors.orange,fontSize: 14),
                   ),
                 ),
               ],
@@ -165,7 +169,9 @@ class DrugsTestsScreen extends StatelessWidget {
     required String status,
     required String doctor,
     String? result,
-  }) {
+  }
+
+  ) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -195,7 +201,7 @@ class DrugsTestsScreen extends StatelessWidget {
                     status,
                     style: TextStyle(
                       color: status == 'Completed' ? Colors.green : Colors.orange,
-                      fontSize: 12,
+                      fontSize: 10,
                     ),
                   ),
                 ),
@@ -205,7 +211,7 @@ class DrugsTestsScreen extends StatelessWidget {
             Text(
               testName,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -220,6 +226,7 @@ class DrugsTestsScreen extends StatelessWidget {
                   style: const TextStyle(
                     color: Color(0xFF1A237E),
                     fontWeight: FontWeight.w500,
+                    fontSize: 13
                   ),
                 ),
                 TextButton(
@@ -228,7 +235,7 @@ class DrugsTestsScreen extends StatelessWidget {
                   },
                   child: const Text(
                     'View Details',
-                    style: TextStyle(color: Colors.orange),
+                    style: TextStyle(color: Colors.orange,fontSize: 14),
                   ),
                 ),
               ],

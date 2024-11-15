@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_registration_screen/APIServices/api_services.dart';
+import 'package:login_registration_screen/models/model.dart';
 // import 'main_screen.dart';
 import 'main_screen.dart';
 import 'registration_screen.dart';
@@ -10,24 +12,37 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 
 }
+
 class _LoginScreenState extends State<LoginScreen> {
+
+
+  final usertype=1;
+  final ApiServices apiServices =ApiServices();
+
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String? _errorMessage;
 
-  void _login() {
+
+  void _login() async{
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text.trim();
-      final password = _passwordController.text;
+      final password = _passwordController.text.trim();
 
-      if (email == '1234' && password == '1234') {
+      LoginModel? result=await apiServices.loginWithModel(email, password);
+
+      if (result != null) {
         // Successful login
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainScreen()),
         );
       } else {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content:Text('Invalid credentials. User does not exist or password is incorrect.')),
+        // );
+
         setState(() {
           _errorMessage = 'Invalid credentials. User does not exist or password is incorrect.';
         });
@@ -87,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const RegistrationScreen()),
+                            MaterialPageRoute(builder: (context) => RegistrationScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/doctor.dart';
-import '../widgets/book_appointment_dialog.dart';
-import '../widgets/doctor_profile_screen.dart';
+import 'book_appoinment_dialog_status.dart';
+// import 'book_appointment_dialog.dart';
+// import '../widgets/doctor_profile_screen.dart';
+import 'doctor_profile_screen.dart';
 
 
 class DoctorScreen extends StatelessWidget {
@@ -53,10 +55,9 @@ class DoctorScreen extends StatelessWidget {
         title: const Text("Doctors", style: TextStyle(
           fontSize: 18, // Adjust font size
           fontWeight: FontWeight.bold, // Make text bold
-          fontFamily: 'Schyler', // Optional: Set a custom font family if you have one
+          // fontFamily: 'Schyler', // Optional: Set a custom font family if you have one
         )),
         backgroundColor: Theme.of(context).primaryColor,
-
         foregroundColor: Colors.white,
       ),
       body: ListView.builder(

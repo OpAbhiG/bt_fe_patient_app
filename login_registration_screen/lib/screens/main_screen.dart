@@ -4,6 +4,7 @@ import '../models/doctor.dart';
 import 'appointments_screen.dart';
 import 'dashboard_screen.dart';
 import 'doctor_screen.dart';
+import 'login_screen.dart';
 import 'profile_screen.dart';
 import 'treatment_screen.dart';
 
@@ -48,7 +49,11 @@ class MainScreenState extends State<MainScreen> {
             doctors: doctors,
           ),
           DoctorScreen(doctors: doctors, onBookAppointment: _bookAppointment),
-          Profile(onLogout: () {  },),
+          Profile(onLogout: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context)=> LoginScreen()),
+            );
+          },),
           AppointmentsScreen(appointments: appointments),
           TreatmentScreen(),
         ],
@@ -65,7 +70,7 @@ class MainScreenState extends State<MainScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, -3),
@@ -92,7 +97,7 @@ class MainScreenState extends State<MainScreen> {
           fontWeight: FontWeight.bold,  // Optional: Make it bold for selected item
         ),
         unselectedLabelStyle: TextStyle(
-          fontSize: 9,  // Adjust text size for unselected items
+          fontSize: 10,  // Adjust text size for unselected items
         ),
 
         items: [
@@ -111,8 +116,8 @@ class MainScreenState extends State<MainScreen> {
   }
   Widget _buildImage(String assetPath) {
     return SizedBox(
-      width: 40,  // Adjust the width of the image
-      height: 40, // Adjust the height of the image
+      width: 35,  // Adjust the width of the image
+      height: 35, // Adjust the height of the image
       child:  Image.asset(
         assetPath,
 

@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class RegistrationScreen extends StatelessWidget {
+import '../APIServices/api_services.dart';
+
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
   @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+
+
+  final TextEditingController email=TextEditingController();
+  final TextEditingController password=TextEditingController();
+  final TextEditingController fname=TextEditingController();
+  final TextEditingController lname=TextEditingController();
+  bool isLoading=false;
+
+
+  @override
   Widget build(BuildContext context) {
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -49,6 +66,7 @@ class RegistrationScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         TextFormField(
+                          controller: fname,
                             decoration: const InputDecoration(
                               labelText: 'First Name',
                               labelStyle: TextStyle(color: Colors.white,fontSize: 12),
@@ -58,6 +76,7 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         TextFormField(
+                          controller: lname,
                           decoration: const InputDecoration(
                             labelText: 'Last Name',
                             labelStyle: TextStyle(color: Colors.white,fontSize: 12),
@@ -157,6 +176,7 @@ class RegistrationScreen extends StatelessWidget {
 
                         SizedBox(height: screenHeight * 0.02),
                         TextFormField(
+                          controller: email,
                           decoration: const InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(color: Colors.white,fontSize: 12),
@@ -170,6 +190,7 @@ class RegistrationScreen extends StatelessWidget {
 
                         SizedBox(height: screenHeight * 0.02),
                         TextFormField(
+                          controller: password,
                           obscureText: true,
                           decoration: const InputDecoration(
                             labelText: 'Password',
@@ -189,9 +210,9 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                         ElevatedButton(
-                          onPressed: () {
-                            // Implement sign up logic
-                          },
+
+                          onPressed: isLoading?null:RegistrationScreen,
+
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange,
                             padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01), // 2% of screen height
@@ -207,6 +228,7 @@ class RegistrationScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
+
                         ),
                       ],
                     ),
@@ -229,7 +251,6 @@ class RegistrationScreen extends StatelessWidget {
   }
 
 //The buildTextField method is a helper function designed to create a TextFormField with customizable properties
-
   Widget buildTextField({required String label, required IconData icon, bool isNumber = false, bool isEmail = false, bool isPassword = false}) {
     return TextFormField(
       decoration: InputDecoration(
@@ -244,5 +265,36 @@ class RegistrationScreen extends StatelessWidget {
           : TextInputType.text,
       obscureText: isPassword,
     );
+  }
+
+
+
+  Future<void> RegistrationScreen() async {
+    if (email.text.isEmpty || password.text.isEmpty||fname.text.isEmpty||lname.text.isEmpty ) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await ApiServices().RegistrationScreen(email.text, password.text,fname.text,lname.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Sign up successful!')),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

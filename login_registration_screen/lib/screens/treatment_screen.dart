@@ -12,7 +12,7 @@ class TreatmentScreen extends StatelessWidget{
         title: const Text('Treatment',style: TextStyle(
           fontSize: 18, // Adjust font size
           fontWeight: FontWeight.bold, // Make text bold
-          fontFamily: 'Schyler', // Optional: Set a custom font family if you have one
+          // fontFamily: 'Schyler',
         )),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
